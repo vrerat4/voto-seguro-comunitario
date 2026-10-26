@@ -1,6 +1,10 @@
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["PySide6", "cryptography"]
+# ///
 """Voto Seguro: prototipo académico de votación cifrada (un solo archivo).
 
-Ejecuta:  py voto_seguro.py   (instala PySide6 y cryptography la primera vez)
+Ejecuta:  uv run voto_seguro.py   o   py voto_seguro.py   (instala las dependencias solo)
 Cripto: ECDH P-256 + HKDF · AES-256-GCM · Ed25519 · X.509 + HTTPS/TLS local · HMAC · PBKDF2.
 Solo para práctica con datos ficticios; no es un sistema electoral real.
 """
@@ -11,10 +15,24 @@ import subprocess
 import sys
 import time
 
+def _install(pkgs: list[str]) -> None:
+    """Instala dependencias con pip, uv o --user, según lo que permita el entorno."""
+    exe = sys.executable
+    for cmd in ([exe, "-m", "pip", "install", "-q", *pkgs],
+                ["uv", "pip", "install", "-q", "--python", exe, *pkgs],
+                [exe, "-m", "pip", "install", "-q", "--user", "--break-system-packages", *pkgs]):
+        try:
+            subprocess.check_call(cmd)
+            return
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            continue
+    sys.exit("No se pudo instalar " + ", ".join(pkgs) + ".\nUsa:  uv run voto_seguro.py   o   py -m pip install " + " ".join(pkgs))
+
+
 _need = [p for p in ("PySide6", "cryptography") if importlib.util.find_spec(p) is None]
 if _need:
     print("Instalando:", *_need)
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", *_need])
+    _install(_need)
 
 import base64
 import hashlib
