@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Voto Seguro Comunitario</title>
+<style>
+:root{--navy:#0b2e59;--blue:#1459a8;--red:#c8102e;--bg:#f2f4f7;--line:#d3d9e1;--ink:#18212d;--mut:#5b6877;--ok:#1b7a43;--warn:#a15c00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Segoe UI",system-ui,sans-serif}
+header{background:var(--navy);color:#fff;border-bottom:4px solid var(--red)}
+.w{max-width:1080px;margin:0 auto;padding:0 20px}.top{display:flex;align-items:center;gap:14px;padding:14px 0}
+.logo{width:42px;height:42px;background:#fff;color:var(--navy);display:grid;place-items:center;font-weight:800;border-radius:2px;border-left:6px solid var(--red)}
+.top h1{font-size:18px;margin:0;font-weight:600}.top small{opacity:.75;font-size:12px}.sp{flex:1}
+main{padding:28px 0 60px}h2{font-size:22px;font-weight:600;margin:0 0 4px;color:var(--navy)}.lead{color:var(--mut);margin:0 0 20px}
+.grid{display:grid;grid-template-columns:1fr 320px;gap:24px}@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:3px}
+.card>h3{margin:0;padding:12px 16px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut);border-bottom:1px solid var(--line);font-weight:600}
+.pad{padding:16px}
+.svc{display:flex;align-items:center;gap:14px;padding:16px;width:100%;border:0;border-bottom:1px solid var(--line);text-align:left;font:inherit;color:inherit;background:#fff;cursor:pointer}
+.svc:hover:not(:disabled){background:#f7f9fc}.svc:disabled{opacity:.5;cursor:not-allowed}.svc b{display:block;color:var(--blue)}.svc span{color:var(--mut);font-size:13px}
+.ic{width:36px;height:36px;border:1px solid var(--line);display:grid;place-items:center;color:var(--navy);font-weight:700}
+label{display:block;font-size:13px;font-weight:600;margin:14px 0 4px}
+input,textarea{width:100%;padding:9px 10px;border:1px solid #aab4c0;border-radius:2px;font:inherit;background:#fff}
+textarea{font:13px Consolas,monospace;min-height:150px;resize:vertical}input:focus,textarea:focus{outline:2px solid var(--blue)}
+.btn{background:var(--blue);color:#fff;border:0;padding:9px 18px;border-radius:2px;font:inherit;font-weight:600;cursor:pointer}.btn:hover{background:var(--navy)}
+.btn.g{background:#fff;color:var(--navy);border:1px solid #aab4c0}.btn.g:hover{background:#eef2f7}.btn.d{background:var(--red)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:700px){.two{grid-template-columns:1fr}}
+.tabs{display:flex;border-bottom:2px solid var(--line);margin-bottom:20px;overflow:auto}
+.tabs button{background:none;border:0;padding:10px 18px;font:inherit;font-weight:600;color:var(--mut);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}.tabs button.on{color:var(--navy);border-color:var(--red)}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.kpi div{background:#fff;border:1px solid var(--line);padding:12px 16px}
+.kpi b{display:block;font-size:26px;color:var(--navy)}.kpi span{font-size:12px;color:var(--mut);text-transform:uppercase}
+.tag{display:inline-block;padding:2px 9px;font-size:12px;font-weight:700;border-radius:2px;color:#fff;background:var(--mut)}.tag.ok{background:var(--ok)}.tag.cl{background:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#eef2f7;color:var(--navy);font-size:12px;text-transform:uppercase;letter-spacing:.04em}.mono{font:12px Consolas,monospace;word-break:break-all}
+.opt{display:flex;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);margin:0 0 8px;cursor:pointer;font-weight:400;font-size:15px}
+.opt:has(input:checked){border-color:var(--blue);background:#eef5ff}.opt input{width:auto}
+.log{max-height:280px;overflow:auto;font:12.5px Consolas,monospace;background:#0f1c2e;color:#cfe0f5;padding:12px}.log .warn{color:#ffb4a8}.log .ok{color:#8fe0a8}
+.bar{height:8px;background:#e3e8ef;margin-top:4px}.bar i{display:block;height:100%;background:var(--blue)}
+.note{border-left:4px solid var(--warn);background:#fff8ec;padding:10px 14px;font-size:13px;margin-top:16px}
+pre{margin:12px 0 0;background:#f7f9fc;border:1px solid var(--line);padding:12px;overflow:auto;font-size:12px}
+#toast{position:fixed;right:20px;bottom:20px;padding:12px 18px;background:var(--navy);color:#fff;border-radius:2px;display:none;max-width:420px;z-index:9}#toast.err{background:var(--red)}
+footer{border-top:1px solid var(--line);padding:14px 0;color:var(--mut);font-size:12px}
+dialog{border:1px solid var(--line);border-radius:3px;padding:22px;max-width:420px}dialog::backdrop{background:#0008}[hidden]{display:none!important}
+</style></head><body>
+<header><div class="w top"><div class="logo">VS</div><div><h1>Voto Seguro Comunitario</h1><small>Sistema de sufragio cifrado · ECDH · AES-256-GCM · Ed25519 · TLS</small></div><div class="sp"></div><div id="who" class="row"></div></div></header>
+<main class="w" id="app"></main>
+<footer><div class="w">Prototipo académico. Usa solo datos ficticios; no es un sistema electoral real.</div></footer>
+<div id="toast"></div>
+<dialog id="dlg"><p id="dm"></p><form method="dialog" class="row"><button class="btn g" value="n">Cancelar</button><button class="btn" value="y">Confirmar</button></form></dialog>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let T=sessionStorage.getItem('t'),ST={},V='portal',CODES=[],R='',TAB=0;
+async function api(p,b){const r=await fetch(p,{method:b===undefined?'GET':'POST',headers:{'Content-Type':'application/json','X-Token':T||''},body:b===undefined?undefined:JSON.stringify(b)});
+ const j=await r.json();if(!r.ok){if(r.status===401){T=null;sessionStorage.removeItem('t')}throw new Error(j.error||'Error')}return j}
+function toast(m,e){const t=$('#toast');t.textContent=m;t.className=e?'err':'';t.style.display='block';clearTimeout(toast.i);toast.i=setTimeout(()=>t.style.display='none',5000)}
+function ask(m){return new Promise(r=>{const d=$('#dlg');$('#dm').innerHTML=m;d.returnValue='';d.onclose=()=>r(d.returnValue==='y');d.showModal()})}
+function dl(n,t,m){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:m}));a.download=n;a.click()}
+async function go(v){ST=await api('/api/state');if(v=='admin'&&!T)v='login';if(v!='voter')R='';V=v;render()}
+function render(){
+ $('#who').innerHTML=T?`<span class="tag ok">Comité autenticado</span><button class="btn g" onclick="out()">Salir</button>`:V!='portal'?`<button class="btn g" onclick="go('portal')">Inicio</button>`:'';
+ $('#app').innerHTML={portal,login,voter,admin}[V]();
+ if(V=='admin'){kpi();$('#codes').innerHTML=codesHtml();$('#acta').innerHTML=actaHtml();tab(TAB)}}
+function portal(){const s=ST;return `<h2>Servicios en línea</h2><p class="lead">Seleccione el servicio al que desea acceder.</p>
+<div class="grid"><div class="card"><h3>Servicios disponibles</h3>
+<button class="svc" ${s.open?'':'disabled'} onclick="go('voter')"><div class="ic">V</div><div><b>Cabina del votante</b><span>${s.open?'Emita su voto cifrado y firmado.':'Disponible cuando el comité abra una elección.'}</span></div></button>
+<button class="svc" onclick="go('admin')"><div class="ic">C</div><div><b>Panel del comité electoral</b><span>Configuración, auditoría y acta firmada.</span></div></button></div>
+<div class="card"><h3>Estado de la elección</h3><div class="pad">${s.ready?`<p><b>${esc(s.org)}</b></p><p><span class="tag ${s.open?'ok':'cl'}">${s.open?'ABIERTA':'CERRADA'}</span></p><p>Votos emitidos: <b>${s.votes}</b> de ${s.voters}</p><label>Huella X.509 SHA-256</label><div class="mono">${s.fingerprint}</div>`:'<p class="lead">Sin elección configurada.</p>'}</div></div></div>`}
+function login(){const n=!ST.admin_set;return `<h2>Acceso del comité electoral</h2><p class="lead">${n?'Primera vez: cree la contraseña del comité (mínimo 10 caracteres).':'Ingrese la contraseña del comité.'}</p>
+<div class="card" style="max-width:460px"><div class="pad"><label>Contraseña</label><input id="pw" type="password" autocomplete="off">${n?'<label>Confirmar contraseña</label><input id="pw2" type="password">':''}
+<div class="row" style="margin-top:18px"><button class="btn" onclick="doLogin()">Ingresar</button><button class="btn g" onclick="go('portal')">Cancelar</button></div></div></div>`}
+async function doLogin(){const p=$('#pw').value,c=$('#pw2');if(c&&c.value!==p)return toast('Las contraseñas no coinciden.',1);
+ try{T=(await api('/api/login',{password:p})).token;sessionStorage.setItem('t',T);go('admin')}catch(e){toast(e.message,1)}}
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&V=='login')doLogin()});
+async function out(){try{await api('/api/logout',{})}catch{}T=null;sessionStorage.removeItem('t');go('portal')}
+function voter(){if(R)return `<h2>Voto registrado</h2><p class="lead">Su sufragio fue cifrado, firmado y aceptado.</p><div class="card" style="max-width:620px"><h3>Comprobante</h3><div class="pad"><p class="mono">${esc(R)}</p><p class="lead">Hash SHA-256 de su papeleta cifrada. No revela su elección.</p><div class="row"><button class="btn" onclick="navigator.clipboard.writeText(R);toast('Copiado.')">Copiar</button><button class="btn g" onclick="go('portal')">Finalizar</button></div></div></div>`;
+ return `<h2>Cabina del votante</h2><p class="lead">${esc(ST.org)}</p><div class="card" style="max-width:620px"><h3>Emitir sufragio</h3><div class="pad">
+<div class="two"><div><label>Identificador</label><input id="vid" autocomplete="off"></div><div><label>Código privado</label><input id="vcode" type="password" autocomplete="off"></div></div>
+<label>Candidatura</label>${ST.candidates.map(c=>`<label class="opt"><input type="radio" name="c" value="${esc(c)}">${esc(c)}</label>`).join('')}
+<button class="btn" style="margin-top:10px" onclick="vote()">Cifrar, firmar y enviar</button></div></div>`}
+async function vote(){const id=$('#vid').value.trim(),code=$('#vcode').value.trim(),c=document.querySelector('input[name=c]:checked');
+ if(!id||!code||!c)return toast('Complete identificador, código y candidatura.',1);
+ if(!await ask(`¿Enviar su voto cifrado como <b>${esc(id)}</b>? No podrá modificarlo.`))return;
+ try{R=(await api('/api/vote',{voter_id:id,code,choice:c.value})).receipt;render()}catch(e){toast(e.message,1)}}
+const PROTO=[['1. Crea clave ECDH P-256 efímera y nonce.','Recibe clave pública de la sesión.'],['2. Verifica huella X.509 fijada y firma del handshake.','Firma el intercambio con Ed25519.'],['3. Deriva clave de sesión con HKDF-SHA-256.','Deriva la misma clave; no la transmite.'],['4. Cifra con AES-256-GCM y firma el sobre (Ed25519).','Verifica padrón, firma, etiqueta y voto único.'],['5. Recibe comprobante SHA-256.','Al cierre, cuenta y firma el acta.']];
+const THR=[['MITM / interceptación','TLS + X.509 fijado + firma del handshake ECDH.','Certificado local autosellado.'],['Suplantación del votante','Padrón habilitado + código privado + firma Ed25519.','Carteras generadas en memoria.'],['Alteración de voto','Firma Ed25519 + tag AES-GCM + HMAC-SHA-256.','Sin auditor externo inmutable.'],['Doble voto / replay','Identidad de un solo uso + sesión ECDH única.','Sin recuperación ante fallos.'],['Fuerza bruta','PBKDF2 600 000 it., bloqueo tras 5 intentos.','Estado solo en memoria.'],['Acta falsa','Acta firmada Ed25519 y verificada.','Sin CA externa.']];
+const tbl=(h,r)=>`<div class="card" style="margin-bottom:20px"><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.map(x=>`<tr>${x.map(y=>`<td>${esc(y)}</td>`).join('')}</tr>`).join('')}</table></div>`;
+function admin(){return `<h2>Panel del comité electoral</h2><p class="lead">Configuración, auditoría y cierre con acta firmada.</p>
+<div class="tabs">${['Configuración','Auditoría','Acta','Seguridad'].map((t,i)=>`<button onclick="tab(${i})">${t}</button>`).join('')}</div>
+<section class="pane"><label>Organización</label><input id="org">
+<div class="two"><div><label>Padrón (ID, Nombre — una línea por votante)</label><textarea id="roster"></textarea></div><div><label>Candidaturas (una por línea)</label><textarea id="cands"></textarea></div></div>
+<div class="row" style="margin-top:16px"><button class="btn g" onclick="ex()">Cargar ejemplo</button><button class="btn" onclick="create()">Crear elección e iniciar HTTPS</button></div>
+<div class="note">Use datos ficticios. Los códigos se muestran una sola vez al crear la elección.</div><div id="codes"></div></section>
+<section class="pane" hidden><div class="kpi" id="kpi"></div><div class="row" style="margin-bottom:16px"><button class="btn g" onclick="act('/api/cert')">Verificar certificado</button><button class="btn g" onclick="act('/api/audit')">Auditar HMAC</button><button class="btn g" onclick="act('/api/mitm')">Simular MITM</button><button class="btn g" onclick="act('/api/tamper')">Simular alteración</button></div><div class="log" id="log"></div></section>
+<section class="pane" hidden><div class="row"><button class="btn d" onclick="closeEl()">Cerrar elección y firmar acta</button></div><div id="acta" style="margin-top:18px"></div></section>
+<section class="pane" hidden><h3>Protocolo</h3>${tbl(['Terminal del votante','Servidor electoral'],PROTO)}<h3>Modelo de amenazas</h3>${tbl(['Amenaza','Mitigación','Límite'],THR)}</section>`}
+function tab(i){TAB=i;document.querySelectorAll('.tabs button').forEach((b,j)=>b.classList.toggle('on',i==j));document.querySelectorAll('.pane').forEach((p,j)=>p.hidden=i!=j);if(i==1)logs()}
+function ex(){$('#org').value='Junta Vecinal Demo';$('#roster').value='VEC-001, Ana de prueba\nVEC-002, Bruno de prueba\nVEC-003, Carla de prueba';$('#cands').value='Lista Vecinal A\nLista Vecinal B\nVoto en blanco'}
+function kpi(){$('#kpi').innerHTML=`<div><b>${ST.voters||0}</b><span>Votantes habilitados</span></div><div><b>${ST.votes||0}</b><span>Votos recibidos</span></div><div><b>${ST.ready?(ST.open?'Abierta':'Cerrada'):'—'}</b><span>Estado</span></div>`}
+async function create(){try{CODES=(await api('/api/election',{org:$('#org').value,roster:$('#roster').value,candidates:$('#cands').value})).codes;ST=await api('/api/state');kpi();$('#codes').innerHTML=codesHtml();$('#acta').innerHTML=actaHtml();toast('Elección creada. Servidor HTTPS activo.')}catch(e){toast(e.message,1)}}
+function codesHtml(){return CODES.length?`<div class="card" style="margin-top:20px"><h3>Códigos de acceso de los votantes</h3><table><tr><th>ID</th><th>Nombre</th><th>Código</th></tr>${CODES.map(c=>`<tr><td>${esc(c.id)}</td><td>${esc(c.name)}</td><td class="mono">${esc(c.code)}</td></tr>`).join('')}</table><div class="pad"><button class="btn g" onclick="csv()">Descargar CSV</button></div></div>`:''}
+function csv(){const q=x=>'"'+String(x).replace(/"/g,'""')+'"';dl('codigos_votantes.csv','ID,Nombre,Codigo\n'+CODES.map(c=>[c.id,c.name,c.code].map(q).join(',')).join('\n'),'text/csv')}
+async function logs(){try{const r=await api('/api/logs');$('#log').innerHTML=r.logs.map(l=>`<div class="${l.l}">[${l.t}] ${esc(l.m)}</div>`).join('')||'Sin eventos.';$('#log').scrollTop=1e9}catch(e){toast(e.message,1)}}
+async function act(p){try{toast((await api(p,{})).detail);ST=await api('/api/state');kpi();logs()}catch(e){toast(e.message,1)}}
+async function closeEl(){if(!await ask('¿Cerrar la votación y firmar el acta? Esta acción es definitiva.'))return;
+ try{await api('/api/close',{});ST=await api('/api/state');kpi();$('#acta').innerHTML=actaHtml();toast('Acta firmada y verificada.')}catch(e){toast(e.message,1)}}
+function actaHtml(){const m=ST.minutes;if(!m)return '<p class="lead">El acta se genera al cerrar la elección. No se muestran resultados parciales para proteger el secreto del voto.</p>';
+ const a=m.acta,t=a.total_votos||1;return `<div class="card"><h3>Resultados · ${esc(a.organizacion)}</h3><div class="pad">${Object.entries(a.resultados).map(([k,v])=>`<p style="margin:0 0 12px"><b>${esc(k)}</b> — ${v} voto(s) · ${Math.round(v*100/t)}%<span class="bar" style="display:block"><i style="width:${v*100/t}%"></i></span></p>`).join('')}
+<p class="lead">Total: ${a.total_votos} · Firma Ed25519 verificada.</p><button class="btn g" onclick="dl('acta_firmada.json',JSON.stringify(ST.minutes,null,2),'application/json')">Descargar acta</button><pre>${esc(JSON.stringify(m,null,2))}</pre></div></div>`}
+go('portal');
+</script></body></html>
